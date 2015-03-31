@@ -1,0 +1,16 @@
+{
+  "name": "static",
+  "version": "0.0.0",
+  "authors": [
+    "shaunn <shaunnb@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
