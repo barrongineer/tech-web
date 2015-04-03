@@ -6,57 +6,49 @@
 
     angular.module('app').controller('SearchController', SearchController);
 
-    SearchController.$inject = ['$scope', '$http', '$mdToast'];
+    SearchController.$inject = ['$http', '$mdToast'];
 
-    function SearchController($scope, $http, $mdToast) {
-        var self = this;
+    function SearchController($http, $mdToast) {
+        var vm = this;
+        vm.selectedItem = null;
+        vm.searchText = null;
+        vm.querySearch = querySearch;
+        vm.search = search;
+        vm.loadingToast = $mdToast.simple().content('Loading...').position('top right').hideDelay(0);
 
         $http.get("/technology")
-        .success(function(data) {
-            self.technologies = data;
-        }).error(function(data, status) {
-            $mdToast.showSimple(status + ' Error.');
-        });
+            .success(function (data) {
+                vm.technologies = data;
+            }).error(function (data, status) {
+                $mdToast.showSimple(status + ' Error.');
+            });
 
-            self.selectedItem  = null;
-            self.searchText    = null;
-            self.querySearch   = querySearch;
-            // ******************************
-            // Internal methods
-            // ******************************
-            /**
-             * Search for states... use $timeout to simulate
-             * remote dataservice call.
-             */
-            function querySearch (query) {
-              var results = query ? self.technologies.filter( createFilterFor(query) ) : [];
-              return results;
-            }
+        function querySearch(query) {
+            var results = query ? vm.technologies.filter(createFilterFor(query)) : [];
+            return results;
+        }
 
-            /**
-             * Create filter function for a query string
-             */
-            function createFilterFor(query) {
-              return function filterFn(technology) {
-                return (technology.displayName.toLowerCase().indexOf(query.toLowerCase()) === 0);
-              };
-            }
+        function createFilterFor(query) {
+            return function filterFn(technology) {
+                return (technology.displayName.toLowerCase().indexOf(query.toLowerCase()) > -1);
+            };
+        }
 
-            self.search = function() {
-                if (self.searchText !== null && self.searchText !== '') {
+        function search() {
+            if (vm.searchText !== null && vm.searchText !== '') {
 
-                    $mdToast.showSimple('Loading...');
+                $mdToast.show(vm.loadingToast);
 
-                    $http.get("/technology/search/" + self.searchText)
-                    .success(function(data) {
-                        self.filteredTechnologies = data;
-                    }).error(function(data, status) {
+                $http.get("/technology/search/" + vm.searchText)
+                    .success(function (data) {
+                        vm.filteredTechnologies = data;
+                        $mdToast.hide(vm.loadingToast);
+                    }).error(function (data, status) {
                         $mdToast.showSimple(status + ' Error.');
                     });
-                } else {
-                    self.filteredTechnologies = self.technologies;
-                }
-            };
+            } else {
+                vm.filteredTechnologies = vm.technologies;
+            }
+        };
     }
-
 })();

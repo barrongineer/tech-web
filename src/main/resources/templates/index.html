@@ -23,8 +23,9 @@
 </md-toolbar>
 
 <div ng-controller="SearchController as search" layout="column" style="max-width: 864px; margin: auto;">
-    <md-content class="md-padding" layout="column">
+    <form name="searchForm" novalidate>
         <div layout="row">
+
             <md-autocomplete flex style="margin-bottom: 5px; margin-right: 20px;"
                              md-selected-item="search.selectedItem"
                              md-search-text="search.searchText"
@@ -36,19 +37,19 @@
 
             <md-button class="md-raised md-primary" style="height: 40px;" ng-click="search.search()">search</md-button>
         </div>
+    </form>
 
-        <md-list>
-            <md-item ng-repeat="tech in search.filteredTechnologies">
-                <md-item-content>
-                    <div class="md-whiteframe-z1" style="margin-top: 20px; padding: 20px;">
-                        <h2>{{tech.displayName}}</h2>
+    <md-list>
+        <md-item ng-repeat="tech in search.filteredTechnologies">
+            <md-item-content>
+                <div class="md-whiteframe-z1" style="margin-top: 20px; padding: 20px;">
+                    <h2>{{tech.displayName}}</h2>
 
-                        <span>{{tech.summary}}</span>
-                    </div>
-                </md-item-content>
-            </md-item>
-        </md-list>
-    </md-content>
+                    <span>{{tech.summary}}</span>
+                </div>
+            </md-item-content>
+        </md-item>
+    </md-list>
 </div>
 
 </body>
