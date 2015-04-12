@@ -8,7 +8,7 @@ What it is:
 - Authentication provided by [oauth-service](https://github.com/shaunnbarron/oauth-service)
 
 Todo:
-- Unit testing via [Jasmine](http://jasmine.github.io/)/[Karma](http://karma-runner.github.io/0.12/index.html)/http://phantomjs.org/
+- Unit testing via [Jasmine](http://jasmine.github.io/) / [Karma](http://karma-runner.github.io/0.12/index.html) / [PhantomJS](http://phantomjs.org/)
 - [Eureka](https://github.com/Netflix/eureka/wiki) service discovery
 - Configuration via http://cloud.spring.io/spring-cloud-config/
 
