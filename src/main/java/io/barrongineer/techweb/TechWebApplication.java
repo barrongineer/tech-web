@@ -11,9 +11,9 @@ import org.springframework.cloud.security.oauth2.sso.EnableOAuth2Sso;
 @EnableZuulProxy
 @EnableOAuth2Sso
 @SpringBootApplication
-public class Application {
+public class TechWebApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(TechWebApplication.class, args);
     }
 }
