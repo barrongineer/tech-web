@@ -10,8 +10,10 @@
     <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
     <script src="/bower_components/angular-material/angular-material.min.js"></script>
-    <script src="/js/app.js"></script>
-    <script src="/js/controllers/search.controller.js"></script>
+    <script src="/js/app/app.module.js"></script>
+    <script src="/js/app/app.config.js"></script>
+    <script src="/js/app/technology/technology.controller.js"></script>
+    <script src="/js/app/technology/technology.service.js"></script>
 
 </head>
 <body>
@@ -22,30 +24,30 @@
     </h2>
 </md-toolbar>
 
-<div ng-controller="SearchController as search" layout="column" style="max-width: 864px; margin: auto;">
+<div ng-controller="TechnologyController as tech" layout="column" style="max-width: 864px; margin: auto;">
     <form name="searchForm" novalidate>
         <div layout="row">
 
             <md-autocomplete flex style="margin-bottom: 5px; margin-right: 20px;"
-                             md-selected-item="search.selectedItem"
-                             md-search-text="search.searchText"
-                             md-items="item in search.querySearch(search.searchText)"
+                             md-selected-item="tech.selectedItem"
+                             md-search-text="tech.searchText"
+                             md-items="item in tech.querySearch(tech.searchText)"
                              md-item-text="item.displayName"
                              placeholder="Search for a technology...">
-                <span md-highlight-text="search.searchText">{{item.displayName}}</span>
+                <span md-highlight-text="tech.searchText">{{item.displayName}}</span>
             </md-autocomplete>
 
-            <md-button class="md-raised md-primary" style="height: 40px;" ng-click="search.search()">search</md-button>
+            <md-button class="md-raised md-primary" style="height: 40px;" ng-click="tech.search()">search</md-button>
         </div>
     </form>
 
     <md-list>
-        <md-item ng-repeat="tech in search.filteredTechnologies">
+        <md-item ng-repeat="t in tech.filteredTechnologies">
             <md-item-content>
                 <div class="md-whiteframe-z1" style="margin-top: 20px; padding: 20px;">
-                    <h2>{{tech.displayName}}</h2>
+                    <h2>{{t.displayName}}</h2>
 
-                    <span>{{tech.summary}}</span>
+                    <span>{{t.summary}}</span>
                 </div>
             </md-item-content>
         </md-item>

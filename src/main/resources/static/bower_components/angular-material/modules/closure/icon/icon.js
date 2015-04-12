@@ -242,7 +242,7 @@ mdIconDirective.$inject = ["$mdIcon", "$mdTheming", "$mdAria"];
     *
     * @description
     * Register a source URL for the default 'named' set of icons. Unless explicitly registered,
-    * subsequent lookups of icons will failover to search this 'default' icon set.
+    * subsequent lookups of icons will failover to technology this 'default' icon set.
     * Icon can be retrieved from this cached, default set using `$mdIcon( <icon name> )`
     *
     * @param {string} url specifies the external location for the data file. Used internally by `$http` to load the

@@ -4,24 +4,31 @@
 (function () {
     'use strict';
 
-    angular.module('app').controller('SearchController', SearchController);
+    angular
+        .module('app')
+        .controller('TechnologyController', TechnologyController);
 
-    SearchController.$inject = ['$http', '$mdToast'];
+    TechnologyController.$inject = ['$http', '$mdToast', 'technologyService'];
 
-    function SearchController($http, $mdToast) {
+    function TechnologyController($http, $mdToast, technologyService) {
         var vm = this;
+        vm.technologies = [];
         vm.selectedItem = null;
         vm.searchText = null;
         vm.querySearch = querySearch;
         vm.search = search;
-        vm.loadingToast = $mdToast.simple().content('Loading...').position('top right').hideDelay(0);
 
-        $http.get("/technology")
-            .success(function (data) {
+        var _loadingToast = $mdToast.simple().content('Loading...').position('top right').hideDelay(0);
+
+        init();
+
+        function init() {
+            $mdToast.show(_loadingToast);
+            technologyService.findAllTechnologies().then(function (data) {
                 vm.technologies = data;
-            }).error(function (data, status) {
-                $mdToast.showSimple(status + ' Error.');
+                $mdToast.hide(_loadingToast);
             });
+        }
 
         function querySearch(query) {
             var results = query ? vm.technologies.filter(createFilterFor(query)) : [];
@@ -36,16 +43,12 @@
 
         function search() {
             if (vm.searchText !== null && vm.searchText !== '') {
+                $mdToast.show(_loadingToast);
 
-                $mdToast.show(vm.loadingToast);
-
-                $http.get("/technology/search/" + vm.searchText)
-                    .success(function (data) {
-                        vm.filteredTechnologies = data;
-                        $mdToast.hide(vm.loadingToast);
-                    }).error(function (data, status) {
-                        $mdToast.showSimple(status + ' Error.');
-                    });
+                technologyService.findAllTechnologiesByDisplayName(vm.searchText).then(function (data) {
+                    vm.filteredTechnologies = data;
+                    $mdToast.hide(_loadingToast);
+                });
             } else {
                 vm.filteredTechnologies = vm.technologies;
             }
