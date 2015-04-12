@@ -10,7 +10,7 @@ What it is:
 Todo:
 - Unit testing via [Jasmine](http://jasmine.github.io/) / [Karma](http://karma-runner.github.io/0.12/index.html) / [PhantomJS](http://phantomjs.org/)
 - [Eureka](https://github.com/Netflix/eureka/wiki) service discovery
-- Configuration via http://cloud.spring.io/spring-cloud-config/
+- Configuration via [Spring Cloud Config](http://cloud.spring.io/spring-cloud-config/)
 
 
 
