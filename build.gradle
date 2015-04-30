@@ -4,9 +4,13 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        maven {
+            url "http://maven.springframework.org/release"
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('org.springframework:springloaded:1.2.2.RELEASE')
     }
 }
 
