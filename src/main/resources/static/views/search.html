@@ -1,0 +1,29 @@
+<div ng-controller="TechnologyController as tech" layout="column" style="max-width: 864px; margin: auto;">
+    <form name="searchForm" novalidate>
+        <div layout="row">
+
+            <md-autocomplete flex style="margin-bottom: 5px; margin-right: 20px;"
+                             md-selected-item="tech.selectedItem"
+                             md-search-text="tech.searchText"
+                             md-items="item in tech.querySearch(tech.searchText)"
+                             md-item-text="item.displayName"
+                             placeholder="Search for a technology...">
+                <span md-highlight-text="tech.searchText">{{item.displayName}}</span>
+            </md-autocomplete>
+
+            <md-button class="md-raised md-primary" style="height: 40px;" ng-click="tech.search()">search</md-button>
+        </div>
+    </form>
+
+    <md-list>
+        <md-item ng-repeat="t in tech.filteredTechnologies">
+            <md-item-content>
+                <div class="md-whiteframe-z1" style="margin-top: 20px; padding: 20px;">
+                    <h2>{{t.displayName}}</h2>
+
+                    <span>{{t.summary}}</span>
+                </div>
+            </md-item-content>
+        </md-item>
+    </md-list>
+</div>

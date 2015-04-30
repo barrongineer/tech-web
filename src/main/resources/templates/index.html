@@ -7,52 +7,63 @@
     <link rel="stylesheet" type="text/css" href="/bower_components/angular-material/angular-material.min.css">
 
     <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-route/angular-route.min.js"></script>
     <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
     <script src="/bower_components/angular-material/angular-material.min.js"></script>
     <script src="/js/app/app.module.js"></script>
     <script src="/js/app/app.config.js"></script>
-    <script src="/js/app/technology/technology.controller.js"></script>
-    <script src="/js/app/technology/technology.service.js"></script>
-
+    <script src="/js/app/search/search.controller.js"></script>
+    <script src="/js/app/search/search.service.js"></script>
+    <script src="/js/app/navigation/navigation.controller.js"></script>
+    <script src="/js/app/actuator/actuator.controller.js"></script>
 </head>
 <body>
 
-<md-toolbar style="margin-bottom: 50px;">
-    <h2 class="md-toolbar-tools">
-        <span>Technologies</span>
-    </h2>
-</md-toolbar>
+<div ng-controller="NavigationController as nav">
+    <md-toolbar style="margin-bottom: 50px;">
+        <h2 class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Menu" ng-click="nav.toggleNav()" style="margin-right: 30px;">
+                <md-icon
+                        md-svg-icon="bower_components/material-design-icons/navigation/svg/production/ic_menu_18px.svg"></md-icon>
+            </md-button>
 
-<div ng-controller="TechnologyController as tech" layout="column" style="max-width: 864px; margin: auto;">
-    <form name="searchForm" novalidate>
-        <div layout="row">
+            <span>Technology App</span>
+            <span flex></span>
+            <md-button ng-click="nav.logout()">logout</md-button>
+            <form id="logoutForm" th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            </form>
+        </h2>
+    </md-toolbar>
 
-            <md-autocomplete flex style="margin-bottom: 5px; margin-right: 20px;"
-                             md-selected-item="tech.selectedItem"
-                             md-search-text="tech.searchText"
-                             md-items="item in tech.querySearch(tech.searchText)"
-                             md-item-text="item.displayName"
-                             placeholder="Search for a technology...">
-                <span md-highlight-text="tech.searchText">{{item.displayName}}</span>
-            </md-autocomplete>
-
-            <md-button class="md-raised md-primary" style="height: 40px;" ng-click="tech.search()">search</md-button>
-        </div>
-    </form>
-
-    <md-list>
-        <md-item ng-repeat="t in tech.filteredTechnologies">
-            <md-item-content>
-                <div class="md-whiteframe-z1" style="margin-top: 20px; padding: 20px;">
-                    <h2>{{t.displayName}}</h2>
-
-                    <span>{{t.summary}}</span>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="nav">
+        <md-toolbar class="md-accent">
+            <h2 class="md-toolbar-tools">
+                <span flex></span>
+                <md-button class="md-icon-button" aria-label="Close" ng-click="nav.toggleNav()">
+                    <md-icon
+                            md-svg-icon="bower_components/material-design-icons/navigation/svg/production/ic_arrow_back_18px.svg"></md-icon>
+                </md-button>
+            </h2>
+        </md-toolbar>
+        <md-content>
+            <div layout="column" style="text-align: center;">
+                <div style="height: 40px">
+                    <md-button class="md-primary" style="width: 100%; height: 100%;" ng-click="nav.goto('/');nav.toggleNav()">SEARCH</md-button>
                 </div>
-            </md-item-content>
-        </md-item>
-    </md-list>
+                <div style="height: 40px">
+                    <md-button class="md-primary" style="width: 100%; height: 100%;">CREATE</md-button>
+                </div>
+                <div style="height: 40px" ng-show="nav.hasRole('ROLE_ADMIN')">
+                    <md-button class="md-primary" style="width: 100%; height: 100%;" ng-click="nav.goto('/admin/actuator');nav.toggleNav()">ACTUATOR</md-button>
+                </div>
+            </div>
+        </md-content>
+    </md-sidenav>
 </div>
+
+<div ng-view></div>
 
 </body>
 </html>

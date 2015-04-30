@@ -5,9 +5,15 @@
     'use strict';
 
     angular.module('app')
-        .config(function ($mdThemingProvider) {
+        .config(function ($mdThemingProvider, $routeProvider) {
             $mdThemingProvider.theme('default')
-                .primaryPalette('cyan')
-                .accentPalette('deep-orange');
+                .primaryPalette('blue')
+                .accentPalette('red');
+
+            $routeProvider.when('/', {
+                templateUrl: '/views/search.html'
+            }).when('/admin/actuator', {
+                templateUrl: '/views/actuator.html'
+            }).otherwise('/');
         });
 })();

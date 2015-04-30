@@ -1,0 +1,193 @@
+<style>
+    md-grid-list md-grid-tile md-grid-tile-header {
+        background: #2196F3;
+    }
+
+    md-grid-tile h2 {
+        margin-top: 50px;
+    }
+
+    .md-header {
+        border: solid 1px gainsboro;
+    }
+
+    .bean-container {
+        margin: 20px;
+    }
+
+    .property-title {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+</style>
+
+<div ng-controller="ActuatorController as actuator" layout="column" style="max-width: 864px; margin: auto;">
+    <div>
+        <md-content class="md-padding">
+            <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always">
+                <md-tab label="METRICS">
+                    <md-content class="md-padding">
+                        <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6" md-row-height-gt-md="1:1"
+                                      md-row-height="4:3"
+                                      md-gutter="20px" md-gutter-gt-sm="20px">
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>Memory</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics.mem | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>Free Memory</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['mem.free'] | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>Processors</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics.processors | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>Uptime</h3></md-grid-tile-header>
+                                <h2>{{(actuator.metrics.uptime / 1000) / 60 | number : 0}} min</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>System Load Average</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['systemload.average'] | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>Heap</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics.heap | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>Heap Init</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['heap.init'] | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>Heap Used</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['heap.used'] | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>Heap Committed</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['heap.committed'] | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>Threads</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics.threads | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>Threads Peak</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['threads.peak'] | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>Threads Daemon</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['threads.daemon'] | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>GC Scavenge Count</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['gc.ps_scavenge.count'] | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>GC Scavenge Time</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['gc.ps_scavenge.time'] | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>GC Marksweep Count</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['gc.ps_marksweep.count'] | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>GC Marksweep Time</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['gc.ps_marksweep.time'] | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>HTTP Sessions Active</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['httpsessions.active'] | number}}</h2>
+                            </md-grid-tile>
+
+                            <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1" class="md-whiteframe-z1">
+                                <md-grid-tile-header><h3>HTTP Sessions Max</h3></md-grid-tile-header>
+                                <h2>{{actuator.metrics['httpsessions.max'] | number}}</h2>
+                            </md-grid-tile>
+                        </md-grid-list>
+                    </md-content>
+                </md-tab>
+                <md-tab label="HEALTH">
+                    <md-content class="md-padding">
+                        <div class="md-whiteframe-z1" style="margin-top: 10px; padding: 20px; width: 100%;">
+                            <h3>tech-web</h3>
+                            <md-divider></md-divider>
+                            <h4>Status: {{actuator.health.status}}</h4>
+                        </div>
+
+                        <div class="md-whiteframe-z1" style="margin-top: 10px; padding: 20px; width: 100%;">
+                            <h3>Eureka</h3>
+                            <md-divider></md-divider>
+                            <h4>Status: {{actuator.health.discovery.status}}</h4>
+
+                            <h4>Services:</h4>
+                            <ul>
+                                <li ng-repeat="service in actuator.health.discovery.discoveryClient.services">
+                                    {{service}}
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="md-whiteframe-z1" style="margin-top: 10px; padding: 20px; width: 100%;">
+                            <h3>Config Server</h3>
+                            <md-divider></md-divider>
+                            <h4>Status: {{actuator.health.configServer.status}}</h4>
+
+                            <h4>Property Sources:</h4>
+                            <ul>
+                                <li ng-repeat="ps in actuator.health.configServer.propertySources">{{ps}}</li>
+                            </ul>
+                        </div>
+
+                        <div class="md-whiteframe-z1" style="margin-top: 10px; padding: 20px; width: 100%;">
+                            <h3>Hystrix</h3>
+                            <md-divider></md-divider>
+                            <h4>Status: {{actuator.health.hystrix.status}}</h4>
+                        </div>
+
+                        <div class="md-whiteframe-z1" style="margin-top: 10px; padding: 20px; width: 100%;">
+                            <h3>Disk Space</h3>
+                            <md-divider></md-divider>
+                            <h4>Status: {{actuator.health.diskSpace.status}}</h4>
+                            <h4>Free: {{actuator.health.diskSpace.free | number}}</h4>
+                            <h4>Threshold: {{actuator.health.diskSpace.threshold | number}}</h4>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="SPRING BEANS">
+                    <md-list>
+                        <md-item ng-repeat="bean in actuator.beans">
+                            <md-item-content style="padding: 10px;">
+                                <div class="md-whiteframe-z1" style="margin-top: 10px; padding: 20px; width: 100%;">
+                                    <div><span class="property-title">Bean:</span>{{bean.bean}}</div>
+                                    <br>
+
+                                    <div><span class="property-title">Scope:</span>{{bean.scope}}</div>
+                                    <br>
+
+                                    <div><span class="property-title">Type:</span>{{bean.type | limitTo:100}}</div>
+                                </div>
+                            </md-item-content>
+                        </md-item>
+                    </md-list>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+
+</div>

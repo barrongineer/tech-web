@@ -1,8 +1,18 @@
 package io.barrongineer.techweb.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cloud.security.oauth2.resource.ResourceServerProperties;
+import org.springframework.cloud.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.cloud.security.oauth2.sso.OAuth2SsoConfigurerAdapter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.oauth2.client.OAuth2RestOperations;
+import org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService;
+import org.springframework.security.oauth2.provider.client.InMemoryClientDetailsService;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
@@ -23,17 +33,34 @@ import java.io.IOException;
  */
 @Configuration
 public class SecurityConfig extends OAuth2SsoConfigurerAdapter {
+
+    @Autowired
+    private ResourceServerProperties sso;
+
+    @Autowired(required = false)
+    @Qualifier("userInfoRestTemplate")
+    private OAuth2RestOperations userInfoRestTemplate;
+
     @Override
     public void match(RequestMatchers matchers) {
         matchers.anyRequest();
     }
 
+    @Bean
+    public ResourceServerTokenServices resourceServerTokenServices() {
+        MyUserInfoTokenServices services = new MyUserInfoTokenServices(sso.getUserInfoUri(), sso.getClientId());
+        services.setRestTemplate(userInfoRestTemplate);
+        return services;
+    }
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/", "/login").permitAll()
+        http.antMatcher("/**").authorizeRequests()
+                .antMatchers("/admin/**", "/views/actuator.html").hasRole("ADMIN")
+                .antMatchers("/login", "/logout").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login")
+                .and().logout().logoutUrl("/logout").invalidateHttpSession(true).deleteCookies("JSESSIONID", "XSRF-TOKEN").permitAll()
                 .and().csrf().csrfTokenRepository(csrfTokenRepository())
                 .and().addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
