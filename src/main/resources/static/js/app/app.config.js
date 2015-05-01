@@ -12,6 +12,8 @@
 
             $routeProvider.when('/', {
                 templateUrl: '/views/search.html'
+            }).when('/create', {
+                templateUrl: '/views/create.html'
             }).when('/admin/actuator', {
                 templateUrl: '/views/actuator.html'
             }).otherwise('/');

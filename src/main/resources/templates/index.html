@@ -17,6 +17,7 @@
     <script src="/js/app/search/search.service.js"></script>
     <script src="/js/app/navigation/navigation.controller.js"></script>
     <script src="/js/app/actuator/actuator.controller.js"></script>
+    <script src="/js/app/create/create.controller.js"></script>
 </head>
 <body>
 
@@ -53,7 +54,7 @@
                     <md-button class="md-primary" style="width: 100%; height: 100%;" ng-click="nav.goto('/');nav.toggleNav()">SEARCH</md-button>
                 </div>
                 <div style="height: 40px">
-                    <md-button class="md-primary" style="width: 100%; height: 100%;">CREATE</md-button>
+                    <md-button class="md-primary" style="width: 100%; height: 100%;" ng-click="nav.goto('/create');nav.toggleNav()">CREATE</md-button>
                 </div>
                 <div style="height: 40px" ng-show="nav.hasRole('ROLE_ADMIN')">
                     <md-button class="md-primary" style="width: 100%; height: 100%;" ng-click="nav.goto('/admin/actuator');nav.toggleNav()">ACTUATOR</md-button>

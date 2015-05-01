@@ -1,0 +1,20 @@
+<div ng-controller="CreateController as create" layout="column" style="max-width: 864px; margin: auto;">
+    <div>
+        <md-content class="md-padding">
+            <div class="md-whiteframe-z1" style="margin-top: 10px; padding: 20px; width: 100%;">
+                <md-input-container flex>
+                    <label>Display Name</label>
+                    <input ng-model="create.technology.displayName">
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Summary</label>
+                    <input ng-model="create.technology.summary">
+                </md-input-container>
+
+                <md-button class="md-raised md-primary" style="height: 40px;" ng-click="create.submit()">submit</md-button>
+            </div>
+        </md-content>
+    </div>
+
+</div>
