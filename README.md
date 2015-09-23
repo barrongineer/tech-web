@@ -7,11 +7,7 @@ What it is:
 - Data provided by [tech-service](https://github.com/shaunnbarron/tech-service)
 - Authentication provided by [oauth-service](https://github.com/shaunnbarron/oauth-service)
 - Services discovered via [eureka-server](https://github.com/shaunnbarron/eureka-server)
+- Configuration via [Spring Cloud Config](http://cloud.spring.io/spring-cloud-config/)
 
 Todo:
 - Unit testing via [Jasmine](http://jasmine.github.io/) / [Karma](http://karma-runner.github.io/0.12/index.html) / [PhantomJS](http://phantomjs.org/)
-- Configuration via [Spring Cloud Config](http://cloud.spring.io/spring-cloud-config/)
-
-
-
-
